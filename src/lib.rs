@@ -17,7 +17,6 @@ extern crate libc;
 #[cfg(test)]
 extern crate tempdir;
 
-use std::ascii::AsciiExt;
 use std::path::{Path, PathBuf};
 use std::{env, fs};
 #[cfg(unix)]
@@ -139,7 +138,7 @@ impl Finder {
             paths.and_then(|paths| {
                     env::split_paths(paths.as_ref())
                         .map(|p| ensure_exe_extension(p.join(binary_name.as_ref())))
-                        .skip_while(|p| !(binary_checker.is_valid(&p)))
+                        .skip_while(|p| !(binary_checker.is_valid(p)))
                         .next()
                 })
                 .ok_or("Cannot find binary path")
